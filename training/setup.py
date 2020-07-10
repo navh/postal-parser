@@ -99,7 +99,7 @@ def tokenize(address):
 def POS_tags(tokens):
         tagged=nltk.pos_tag(tokens)
         
-        return dict(tagged)
+        return tagged
 
 #   Owner: Mona & Saira
 #   description: just writes the output of the above to a file
@@ -115,7 +115,7 @@ def to_CoNLL(address):
     pos =  POS_tags(tokens)
     conll = '-DOCSTART- -X- -X- O \n'
     for i in range(len(tokens)):
-        conll = conll + '{} {} {} {} \n'.format(tokens[i], pos[tokens[i]], pos[tokens[i]], tags[tokens[i]])
+        conll = conll + '{} {} {} {} \n'.format(tokens[i], pos[tokens[i][1]], pos[tokens[i][1]], tags[tokens[i]])
     return conll
 
 def write_CONLL_file(zipped_lists):

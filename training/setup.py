@@ -97,10 +97,6 @@ def tokenize(address):
 
 ###ADD POS tagging formula here ###
 def POS_tags(tokens):
-    
-        
-        
-        
         tagged=nltk.pos_tag(tokens)
         
         return dict(tagged)

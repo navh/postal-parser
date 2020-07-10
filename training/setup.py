@@ -116,10 +116,10 @@ def POS_tags(tokens):
 def to_CoNLL(address):
     tokens = tokenize(address)
     tags = NER_tags(address)
-    pos = len(tokens)*['NA'] # change to pos tagging formula here
+    pos =  POS_tags(tokens)
     conll = '-DOCSTART- -X- -X- O \n'
     for i in range(len(tokens)):
-        conll = conll + '{} {} {} {} \n'.format(tokens[i], pos[i], pos[i], tags[tokens[i]])
+        conll = conll + '{} {} {} {} \n'.format(tokens[i], pos[tokens[i]], pos[tokens[i]], tags[tokens[i]])
     return conll
 
 def write_CONLL_file(zipped_lists):

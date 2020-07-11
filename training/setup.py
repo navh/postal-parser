@@ -120,7 +120,7 @@ def to_CoNLL(address):
 
 def write_CONLL_file(zipped_lists):
     file = open(OUT_FILE_NAME, 'w+')
-    for address in addresses:
+    for address in zipped_lists:
         file.write(to_CoNLL(address))
     file.close()
 

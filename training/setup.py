@@ -113,16 +113,20 @@ def to_CoNLL(address):
     tokens = tokenize(address)
     tags = NER_tags(address)
     pos =  POS_tags(tokens)
-    conll = '-DOCSTART- -X- -X- O \n'
+    conll=''
     for i in range(len(tokens)):
-        conll = conll + '{} {} {} {} \n'.format(tokens[i], pos[i][1], pos[i][1], tags[tokens[i]])
+        conll =conll+ '{} {} {} {} \n'.format(tokens[i], pos[i][1], pos[i][1], tags[tokens[i]])
     return conll
 
 def write_CONLL_file(zipped_lists):
     file = open(OUT_FILE_NAME, 'w+')
+    conll = '-DOCSTART- -X- -X- O \n'
+    file.write(conll)
     for address in zipped_lists:
         file.write(to_CoNLL(address))
+        file.write('\n')
     file.close()
+
 
 
 

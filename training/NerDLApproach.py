@@ -130,5 +130,5 @@ print(accuracy_score(df_train.ground_truth, df_train.prediction))
 if Test== True:
     print(classification_report(df_test.ground_truth, df_test.prediction))
     print(accuracy_score(df_test.ground_truth, df_test.prediction))
-    
-    print('Done! Yay!!')
+
+print('Done! Yay!!')

@@ -20,7 +20,7 @@ from sparknlp.training import CoNLL
 training_data_path = 'test_CoNLL_addresses.txt'
 test_data_path = 'test_CoNLL_addresses.txt')
 path_to_model = 'NER_model1'
-Test = False
+test = False
 
 ###Start session###
 
@@ -49,7 +49,7 @@ spark = start(gpu=gpu_access)
 print('Loading data...')
 training_data = CoNLL().readDataset(spark, training_data_path)
 
-if Test== True:
+if test == True:
     test_data = CoNLL().readDataset(spark, test_data_path)
 
 
@@ -64,6 +64,8 @@ bert_annotator = BertEmbeddings.pretrained('bert_base_cased', 'en') \
  .setPoolingLayer(0)
  
 training_data = bert_annotator.transform(training_data)
+if test == True:
+    test_data =bert_annotator.transform(test_data)
 
 ###Building NER pipeline###
 
@@ -105,7 +107,7 @@ Ner_model.stages[1].write().overwrite().save(path_to_model)
 print('getting predictions...')
 training_predictions = Ner_model.transform(training_data)
 
-if Test==True:
+if test == True:
     test_predictions = Ner_model.transform(test_data)
 
 ###Evaluation###
@@ -116,7 +118,7 @@ df_train = training_predictions.select(F.explode(F.arrays_zip('token.result','la
         F.expr("cols['1']").alias("ground_truth"),
         F.expr("cols['2']").alias("prediction")).toPandas()
         
-if Test == True:
+if test == True:
     df_test = test_predictions.select(F.explode(F.arrays_zip('token.result','label.result','ner.result')).alias("cols")) \
     .select(F.expr("cols['0']").alias("token"),
         F.expr("cols['1']").alias("ground_truth"),
@@ -127,7 +129,7 @@ print('Evaluation report for training data:')
 print(classification_report(df_train.ground_truth, df_train.prediction))
 print(accuracy_score(df_train.ground_truth, df_train.prediction))
 
-if Test== True:
+if test== True:
     print(classification_report(df_test.ground_truth, df_test.prediction))
     print(accuracy_score(df_test.ground_truth, df_test.prediction))
 

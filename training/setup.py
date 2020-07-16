@@ -32,6 +32,7 @@ OA_TO_LIBPOSTAL = {'LAT': '',
 #      return:     returns list of dictionaries with keys matching opencage
 #      eg output:  [{'houseNumber': '3a', 'road': 'Main St.', 'neighborhood': '', 'city': 'Toronto', 'county':...]
 
+
 def parse_dir(root_location, country, delimiter=','):
     label = 'country'
     parents = [{'label': label, 'value': country}]
@@ -117,7 +118,6 @@ def split(counter, folder_name, country):
     print('lists organized')
     write_conll_file(all_addresses, str(counter))
     print('CoNLL written, done ' + country)
-
 
 def main():
     dir_contents = next(os.walk(ROOT_FOLDER_NAME))

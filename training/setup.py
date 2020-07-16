@@ -1,15 +1,15 @@
 import csv
 import os
-import nltk
-
 from training.address import Address
-import random
-probability=0.8
-shuffle=False
-add=False
 
-ROOT_FOLDER_NAME = '../../structured_data/openaddr-collected-global'
-OUT_FILE_NAME = '../data/CoNLL_addresses'
+
+PROBABILITY_SHUFFLE_ADDRESS=0.2
+PROBABILITY_DUPLICATE_TAGS=0.3
+PROBABILITY_DELETE_TAGS=0.2
+
+
+ROOT_FOLDER_NAME = '../../structured_data/testdata'
+OUT_FILE_NAME = '../data/for_mona'
 OA_TO_LIBPOSTAL = {'LAT': '',
                    'LON': '',
                    'NUMBER': 'house_number',
@@ -21,8 +21,7 @@ OA_TO_LIBPOSTAL = {'LAT': '',
                    'POSTCODE': 'postcode',
                    'ID': '',
                    'HASH': ''}
-def decision(probability):
-    return random.random() < probability
+
 # ///////////////////////////////////////////////////////////////////////////////////////
 #   STEP 1
 #   Owner: Archi & Ian
@@ -34,9 +33,6 @@ def decision(probability):
 #      eg output:  [{'houseNumber': '3a', 'road': 'Main St.', 'neighborhood': '', 'city': 'Toronto', 'county':...]
 
 def parse_dir(root_location, country, delimiter=','):
-    dir_contents = next(os.walk(root_location))
-    sub_directories = dir_contents[1]
-
     label = 'country'
     parents = [{'label': label, 'value': country}]
 
@@ -81,7 +77,6 @@ def get_info_from_file_name(label, file_name):
         return []
     return [{'label': label, 'value': clean_file_name}]
 
-
   
 def read_csv(file_location, delimiter, parent_info=[]):
     # Opens a .csv file at location file_location and adds converts each line into a list of dictionaries
@@ -98,10 +93,7 @@ def read_csv(file_location, delimiter, parent_info=[]):
                     line.append({'label': label, 'value': value})
             for parent in parent_info:
                 line.append(parent)
-            if decision(probability) is True:    
-             out_list.append(Address(line))
-            else:
-              out_list.append(Address(line, make_randomized_order(shuffle,add))
+            out_list.append(Address(line, probability_shuffle=PROBABILITY_SHUFFLE_ADDRESS))
     return out_list
 
 
@@ -132,7 +124,7 @@ def main():
     sub_directories = dir_contents[1]
     counter = 0
     for sub_dir in sub_directories:
-        if counter > 26:
+        if counter == 0:
             folder_name = ROOT_FOLDER_NAME + '/' + sub_dir
             split(counter, folder_name, sub_dir)
         counter += 1

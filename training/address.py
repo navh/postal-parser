@@ -1,17 +1,17 @@
 import nltk
 import re
 import random
-GIVEN_LABELS = ('house', 'level', 'unit', 'po_box', 'house_number',
-                'road', 'near',  'city', 'suburb', 'city_district',
-                'state_district', 'state', 'postcode',
-                'country_region', 'country', 'lon', 'lat', 'id', 'hash')
+
 
 
 
 class Address:
     # Representation of a structured address for development of training data
 
-    def __init__(self, dictionary, order=GIVEN_LABELS):
+    MAX_NUM_TAGS = 20
+
+
+    def __init__(self, dictionary, probability_shuffle=0.0, probability_delete=0.0, probability_duplicate=0.0):
         # Description: Builds Address object from a list of dictionaries
         #   Parameter: dictionary
         #       takes in a list of dictionaries of the form
@@ -20,13 +20,17 @@ class Address:
         #       A tuple or list of lib postal labels (as strings)
         #       in the order expected for the unstructured address
         self.address_dict = dictionary
-        self.order = order
+        self._set_order()
+        if random.random() < probability_shuffle:
+            self._randomize_order()
+        self._duplicate_tags(probability_duplicate)
+        self._delete_tags(probability_delete)
         self.ordered = False
 
     def __str__(self):
         # Description: Converts the class to a string, checks if ordered before returning
         if not self.ordered:
-            self.order_address(self.order)
+            self.order_address()
         accum_string = ''
         for value in self.address_dict:
             accum_string += value['value']
@@ -48,39 +52,40 @@ class Address:
                     counter += 1
         self.address_dict = address_list
         self.ordered = True
-        
-    @staticmethod 
-    def add_delete_randomly_tags(add):
-      if add is True:
-        #randomly duplicate some tags
-        order= tuple([GIVEN_LABELS[x] for x in range(1, random.randrange(1,15))])+GIVEN_LABELS
-      else:
-        #randomly delete some tags
-        deleted_tags=[GIVEN_LABELS[x] for x in range(1, random.randrange(2,15))]
-        order = tuple([x for x in list(GIVEN_LABELS) if x not in deleted_tags])
-      return order
-        
-      
-  
-    def make_randomized_order(self,shuffle,add):
-       if shuffle is True:
-          new_order = tuple(random.sample(t, len(t)))
-       else:
-          r=random.randint(1,3)
-          if r==1:
-            new_order=('house_number','road', 'near',  'city', 'suburb', 'city_district',
-                  'state_district', 'state', 'postcode','house', 'level', 'unit', 'po_box',
-                  'country_region', 'country', 'lon', 'lat', 'id', 'hash')
-          if r==2:
-            new_order=('house', 'house_number','po_box', 'road', 'near',  'city', 'suburb','house_number', 'city_district',
-                  'state_district', 'state', 'postcode', 'level', 'unit', ,
-                  'country_region', 'country', 'lon', 'lat', 'id', 'hash')
-          if r==3:
-            new_order=add_delete_randomly_tags(add)
-       self.order = new_order
-       
-      
-      
+
+    def _set_order(self):
+        r = random.randint(0,2)
+        if r == 0:
+            new_order = ['house_number','road', 'near',  'city', 'suburb', 'city_district',
+                         'state_district', 'state', 'postcode','house', 'level', 'unit', 'po_box',
+                         'country_region', 'country', 'lon', 'lat', 'id', 'hash']
+        elif r== 1:
+            new_order = ['house', 'house_number','po_box', 'road', 'near',  'city', 'suburb','house_number',
+                         'city_district', 'state_district', 'state', 'postcode', 'level', 'unit',
+                         'country_region', 'country', 'lon', 'lat', 'id', 'hash']
+        else:
+            new_order = ['house', 'level', 'unit', 'po_box', 'house_number',
+                         'road', 'near',  'city', 'suburb', 'city_district',
+                         'state_district', 'state', 'postcode',
+                         'country_region', 'country', 'lon', 'lat', 'id', 'hash']
+        self.ordered = False
+        self.order = new_order
+
+    def _randomize_order(self):
+        random.shuffle(self.order)
+        self.ordered = False
+
+    def _delete_tags(self, _delete_probability):
+        while random.random() < _delete_probability and len(self.order) > 1:
+            del(self.order[random.randint(0, len(self.order)-1)])
+        self.ordered = False
+
+    def _duplicate_tags(self, _duplicate_probability):
+        while random.random() < _duplicate_probability and len(self.order) < self.MAX_NUM_TAGS:
+            item_to_be_duplicated = self.order[random.randint(0, len(self.order)-1)]
+            self.order.insert(item_to_be_duplicated, random.randint(0, len(self.order)))
+        self.ordered = False
+
     def to_conll(self):
         # Description: Takes the address in the order stored and develops the CONLL
         #   representation of the address
@@ -98,7 +103,7 @@ class Address:
     def _ner_tags(self):
         tags = {}
         for part in self.address_dict:
-            value = part['value'].split(' ')
+            value = re.split('[ _]',part['value'])
             tokens = []
             tokens = tokens + [word for word in value if word]
             for i in range(len(tokens)):
@@ -111,7 +116,7 @@ class Address:
     def _tokenize(self):
         tokens = []
         for part in self.address_dict:
-            value = re.split(' |_', part['value'])
+            value = re.split('[ _]', part['value'])
             tokens = tokens + [word for word in value if word]
         return tokens
 

@@ -11,7 +11,6 @@ gcloud beta dataproc clusters create ${CLUSTER_NAME} \
         --worker-machine-type n1-standard-2 \
         --metadata 'PIP_PACKAGES=google-cloud-storage spark-nlp==2.5.1' \
         --num-workers 2 \
-        --image-version 1.3-debian10 \
 	--master-boot-disk-size=40GB \
         --image-version 1.4-debian10 \
         --initialization-actions gs://dataproc-initialization-actions/python/pip-install.sh \

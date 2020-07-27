@@ -1,15 +1,16 @@
 import csv
 import os
 from training.address import Address
+import sys
 
 
 PROBABILITY_SHUFFLE_ADDRESS=0.2
 PROBABILITY_DUPLICATE_TAGS=0.3
 PROBABILITY_DELETE_TAGS=0.2
 
-
-ROOT_FOLDER_NAME = '../../structured_data/testdata'
-OUT_FILE_NAME = '../data/for_mona'
+bucket = sys.argv[1]
+ROOT_FOLDER_NAME = 'gs://' + bucket + '/openaddr-collected-global'
+OUT_FILE_NAME = 'gs://' + bucket + '/conll-data'
 OA_TO_LIBPOSTAL = {'LAT': '',
                    'LON': '',
                    'NUMBER': 'house_number',

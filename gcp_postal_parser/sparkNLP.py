@@ -1,5 +1,6 @@
 from sklearn.metrics import classification_report, accuracy_score
 import sys
+import os
 import pyspark as ps
 import warnings
 import re
@@ -14,16 +15,14 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 
-training_data_path = '/train/train_addresses'
-test_data_path = '/test/test_addresses'
+training_dir = '/train/'
+test_data_dir = '/test/'
 loaded_model=False
 test=False
 
 
 # grab command line args and store them as variables
 bucket = sys.argv[1]
-num_train_files = sys.argv[2]
-num_test_files = sys.argv[3]
 inputdir = 'gs://'+bucket+'/conll-data/'
 outputfile = 'gs://'+bucket+'/pyspark_nlp/result'
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model'
@@ -33,8 +32,10 @@ modeldir = 'gs://'+bucket+'/pyspark_nlp/model'
 def unionAll(dfs):
     return reduce(DataFrame.unionAll, dfs)
 
-def read_data(path, numfiles):
-    dfs = [CoNLL().readDataset(spark, inputdir +path+i+ ".txt") for i in range(numfiles)]
+def read_data(dir_path):
+    dfs = []
+    for filename in os.listdir(dir_path):
+        dfs = dfs.append(CoNLL().readDataset(spark, dir_path+filename))
     return unionAll(dfs)
 
 # preprocessing: make embeddings
@@ -122,10 +123,10 @@ if __name__ == "__main__":
     print('retrieving data from {}'.format(inputdir))
     if not loaded_model:
         
-        training_data = read_data(training_data_path, num_training_files)
+        training_data = read_data(training_data_dir)
         training_data.show(3)
     if test is True:
-        test_data=read_data(test_data_path, num_training_files)
+        test_data=read_data(test_data_dir)
 
     print('get embedding...')
     bert_annotator=embedding()

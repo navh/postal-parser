@@ -34,7 +34,8 @@ def unionAll(dfs):
 
 def read_data(dir_path):
     dfs = []
-    for filename in os.listdir(dir_path):
+    files = os.listdir(dir_path)
+    for filename in files:
         dfs = dfs.append(CoNLL().readDataset(spark, dir_path+filename))
     return unionAll(dfs)
 

@@ -14,11 +14,11 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 
-training_data_path = '/train/'
-test_data_path = '/test/'
+training_data_path = '/train/train_addresses'
+test_data_path = '/test/test_addresses'
 loaded_model=False
 test=False
-path="should be defined'
+
 
 # grab command line args and store them as variables
 bucket = sys.argv[1]

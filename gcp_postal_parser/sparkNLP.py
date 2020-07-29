@@ -14,17 +14,17 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 
-training_data_path = 'test_CoNLL_addresses.txt'
-test_data_path = 'randomized-test_CoNLL_addresses.txt'
+training_data_path = '/train/'
+test_data_path = '/test/'
 loaded_model=False
 test=False
-
+path="should be defined'
 
 # grab command line args and store them as variables
 bucket = sys.argv[1]
 num_train_files = sys.argv[2]
 num_test_files = sys.argv[3]
-inputdir = 'gs://'+bucket+'/pyspark_nlp/data/'
+inputdir = 'gs://'+bucket+'/conll-data/'
 outputfile = 'gs://'+bucket+'/pyspark_nlp/result'
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model'
 
@@ -34,7 +34,7 @@ def unionAll(dfs):
     return reduce(DataFrame.unionAll, dfs)
 
 def read_data(path, numfiles):
-    dfs = [CoNLL().readDataset(spark, inputdir +path+i) for i in range(numfiles)]
+    dfs = [CoNLL().readDataset(spark, inputdir +path+i+ ".txt") for i in range(numfiles)]
     return unionAll(dfs)
 
 # preprocessing: make embeddings

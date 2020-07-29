@@ -15,8 +15,8 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 
-training_dir = '/training/'
-test_data_dir = '/test/'
+training_dir = 'training'
+test_dir = 'testing'
 loaded_model=False
 test=False
 
@@ -34,6 +34,8 @@ def unionAll(dfs):
 
 def read_data(dir_path):
     dfs = []
+    print(dir_path)
+    #directory = os.fsencode(dir_path)
     files = os.listdir(dir_path)
     for filename in files:
         dfs = dfs.append(CoNLL().readDataset(spark, dir_path+filename))
@@ -124,10 +126,10 @@ if __name__ == "__main__":
     print('retrieving data from {}'.format(inputdir))
     if not loaded_model:
         
-        training_data = read_data(training_data_dir)
+        training_data = read_data(inputdir + training_dir)
         training_data.show(3)
     if test is True:
-        test_data=read_data(test_data_dir)
+        test_data=read_data(inputdir + test_dir)
 
     print('get embedding...')
     bert_annotator=embedding()

@@ -15,7 +15,7 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 
-training_dir = '/train/'
+training_dir = '/training/'
 test_data_dir = '/test/'
 loaded_model=False
 test=False

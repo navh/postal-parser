@@ -70,7 +70,7 @@ def train(spark,data, NER_pipeline):
     
     
         print('fitting data for training...')
-        model =  NER_pipeline.fit(data.limit(20000))
+        model =  NER_pipeline.fit(data)
         print('Saving model...')
         model.stages[1].write().overwrite().save(modeldir)
         return model

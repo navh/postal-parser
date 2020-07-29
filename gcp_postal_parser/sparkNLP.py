@@ -110,6 +110,7 @@ if __name__ == "__main__":
 
     print('retrieving data from {}'.format(inputdir))
     if not loaded_model:
+        
         training_data = CoNLL().readDataset(spark, inputdir +training_data_path)
         training_data.show(3)
     if test is True:

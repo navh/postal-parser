@@ -121,7 +121,6 @@ if __name__ == "__main__":
     if not loaded_model:
         training_data = bert_annotator.transform(training_data)
         pipelineFit = train(spark,training_data,NER_pipeline)
-        predict(pipelineFit,training_data)
     if test is True:
         test_data = bert_annotator.transform(test_data)
         model=loading_model(inputdir)

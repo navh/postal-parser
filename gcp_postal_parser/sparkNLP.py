@@ -3,6 +3,8 @@ import sys
 import pyspark as ps
 import warnings
 import re
+from functools import reduce  # For Python 3.x
+from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.ml import Pipeline, PipelineModel
@@ -11,6 +13,7 @@ import sparknlp
 from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
+
 training_data_path = 'test_CoNLL_addresses.txt'
 test_data_path = 'randomized-test_CoNLL_addresses.txt'
 loaded_model=False
@@ -19,12 +22,20 @@ test=False
 
 # grab command line args and store them as variables
 bucket = sys.argv[1]
+num_train_files = sys.argv[2]
+num_test_files = sys.argv[3]
 inputdir = 'gs://'+bucket+'/pyspark_nlp/data/'
 outputfile = 'gs://'+bucket+'/pyspark_nlp/result'
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model'
 
 
+# preprocessing: Read data
+def unionAll(dfs):
+    return reduce(DataFrame.unionAll, dfs)
 
+def read_data(path, numfiles):
+    dfs = [CoNLL().readDataset(spark, inputdir +path+i) for i in range(numfiles)]
+    return unionAll(dfs)
 
 # preprocessing: make embeddings
 def embedding():
@@ -111,10 +122,10 @@ if __name__ == "__main__":
     print('retrieving data from {}'.format(inputdir))
     if not loaded_model:
         
-        training_data = CoNLL().readDataset(spark, inputdir +training_data_path)
+        training_data = read_data(training_data_path, num_training_files)
         training_data.show(3)
     if test is True:
-        test_data=CoNLL().readDataset(spark, inputdir +test_data_path)
+        test_data=read_data(test_data_path, num_training_files)
 
     print('get embedding...')
     bert_annotator=embedding()

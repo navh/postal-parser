@@ -1,6 +1,5 @@
 from sklearn.metrics import classification_report, accuracy_score
 import sys
-import os
 import pyspark as ps
 import warnings
 import re
@@ -32,13 +31,14 @@ modeldir = 'gs://'+bucket+'/pyspark_nlp/model'
 def unionAll(dfs):
     return reduce(DataFrame.unionAll, dfs)
 
-def read_data(dir_path):
+def read_data(dir_path, filenames):
     dfs = []
     print(dir_path)
     #directory = os.fsencode(dir_path)
-    files = os.listdir(dir_path)
+    with open(filenames) as names:
+        files = names.readlines()
     for filename in files:
-        dfs = dfs.append(CoNLL().readDataset(spark, dir_path+filename))
+        dfs = dfs.append(CoNLL().readDataset(spark, dir_path+filename.strip()))
     return unionAll(dfs)
 
 # preprocessing: make embeddings

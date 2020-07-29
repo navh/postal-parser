@@ -12,8 +12,7 @@ from sparknlp.annotator import *
 from sparknlp.common import *
 from sparknlp.base import *
 training_data_path = 'test_CoNLL_addresses.txt'
-test_data_path = 'test_CoNLL_addresses.txt'
-gpu_access=False
+test_data_path = 'randomized-test_CoNLL_addresses.txt'
 loaded_model=False
 test=False
 

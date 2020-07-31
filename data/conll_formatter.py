@@ -1,6 +1,6 @@
 file = 'training.txt'
 
-formatted = open(r"conll_formatted.txt", "a", encoding="utf8")   
+formatted = open(r"training_formatted.txt", "a", encoding="utf8")   
 
 with open(file, encoding='utf8') as f:
     data_list = f.readlines()

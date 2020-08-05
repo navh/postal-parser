@@ -14,6 +14,7 @@ gcloud beta dataproc clusters create ${CLUSTER_NAME} \
 --metadata 'PIP_PACKAGES=google-cloud-storage spark-nlp==2.5.1' \
 --num-workers 2 \
 --num-preemptible-workers 20 \
+--enable-component-gateway \
 --max-idle 7200s \
 --master-boot-disk-size=100GB \
 --image-version 1.4-debian10 \

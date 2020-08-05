@@ -1,4 +1,4 @@
-CLUSTER_NAME=postal-parser-1
+CLUSTER_NAME=postal-parser-234
 REGION=europe-west1
 BUCKET_NAME=postal-parser-27
 
@@ -12,9 +12,7 @@ gcloud beta dataproc clusters create ${CLUSTER_NAME} \
 --master-machine-type e2-standard-4 \
 --worker-machine-type e2-standard-4 \
 --metadata 'PIP_PACKAGES=google-cloud-storage spark-nlp==2.5.1' \
---num-workers 2 \
---num-secondary-workers 20 \
---enable-component-gateway \
+--num-workers 10 \
 --max-idle 7200s \
 --master-boot-disk-size=100GB \
 --image-version 1.4-debian10 \

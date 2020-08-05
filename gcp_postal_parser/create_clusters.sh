@@ -9,16 +9,19 @@ echo "Creating a cluster"
 
 gcloud beta dataproc clusters create ${CLUSTER_NAME} \
 --region ${REGION} \
---master-machine-type e2-standard-8 \
---worker-machine-type e2-standard-8 \
+--master-machine-type e2-standard-4 \
+--worker-machine-type e2-standard-4 \
 --metadata 'PIP_PACKAGES=google-cloud-storage spark-nlp==2.5.1' \
---num-workers 20 \
+--num-workers 2 \
+--num-preemptible-workers 20 \
+--max-idle 7200s \
 --master-boot-disk-size=100GB \
 --image-version 1.4-debian10 \
 --initialization-actions gs://dataproc-initialization-actions/python/pip-install.sh \
 --optional-components=JUPYTER,ANACONDA \
 --enable-component-gateway \
---bucket=${BUCKET_NAME}
+--bucket=${BUCKET_NAME} \
+--no-address
 
 echo "Listing clusters that exist"
 

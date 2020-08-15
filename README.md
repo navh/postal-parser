@@ -4,12 +4,12 @@ Probabilistic postal pyspark parser project pod.
 ### Tasks
 
 - [x] Download OpenAddress data - beautiful csv
-- [x] Determine data syntax for modelling - CoNLL, 1 doc / address, custom B-XXX and I-XXX tags.
-- [ ] Create python skeleton for data pre-processing
-- [ ] Create example .txt of cage, dict tuples
-- [ ] take csv, process into dict suitable for OpenCage
-- [ ] take OpenCage  dicts, process into typical address strings
-- [ ] take address strings & dicts, process into CoNLL daddress strings & dicts, process into CoNLL doc
+- [x] Determine data format for the training pipeline (Pyspark dataframe)
+- [x] Create data pre-processing pipeline
+- [x] Get formatted distributed data (parquet) ready for the training pipeline  
+- [x] Prepare training pipeline
+- [ ] Train on the public addresses
+- [ ] Experiment with embeddings (Multi-language, ELMO, etc), and language models 
 
 ### Formatting pipeline
 

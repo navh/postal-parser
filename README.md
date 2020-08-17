@@ -5,7 +5,7 @@
 
 
 # Data Sources and Preparation
-Six data sources were used to collect and gather data. The sources are:
+Five data sources were used to collect and gather data. The sources are:
 
 ### OpenAddresses
 OpenAddresses provides a dataset consisting of structured CSVs. The CSVs are structured by address fields.

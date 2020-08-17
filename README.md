@@ -22,7 +22,7 @@ OpenStreetMap provides a dataset consisting of longitude and latitude coordinate
 
 ![Data](Images/openstreetmap.PNG)
 
-This data is then taken and run through 
+This data is then taken and run through a reverse geocoder from OpenCage. This returns a dictionary of dictionaries for each address. The dictionary is parsed through for each address field and the information is formatted into a structured CSV which is then used.
 
 OpenStreetMap is 93 GB in size. The dataset can be found [here](https://planet.openstreetmap.org/).
 

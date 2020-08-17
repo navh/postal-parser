@@ -14,7 +14,7 @@ Probabilistic postal pyspark parser project pod.
 - [ ] Experiment with embeddings (Multi-language, ELMO, etc), and language models 
 
 ### Formatting pipeline
-The NerDLApproach() is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb)
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. `NerDLApproach` also simplifies the data preprocessing stage.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)

@@ -9,6 +9,8 @@ Probabilistic postal pyspark parser project pod.
 - [x] Get formatted distributed data (parquet) ready for the training pipeline  
 - [x] Prepare training pipeline
 - [ ] Train on the public addresses
+- [ ] Prepare a testing pipeline for HSBC data
+- [ ] Test on HSBC data and modify training data to train an updated model
 - [ ] Experiment with embeddings (Multi-language, ELMO, etc), and language models 
 
 ### Formatting pipeline

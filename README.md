@@ -4,7 +4,7 @@
 # Google Cloud Use
 
 
-# Data Sources and Preparation
+## Data Sources and Preparation
 Five data sources were used to collect and gather data. The sources are:
 
 ### OpenAddresses
@@ -73,10 +73,10 @@ The data can be found [here](https://data.gov.hk/en-data/dataset/hk-rvd-tsinfo_r
 
 
 
-# Data Processing
+## Data Processing
 
 
-# Model Pipeline
+## Model Pipeline
 
 The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
 

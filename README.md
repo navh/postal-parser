@@ -83,4 +83,6 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)
  - [Spark-nlp documentation](https://nlp.johnsnowlabs.com/docs/en/quickstart)
+ 
+Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
 

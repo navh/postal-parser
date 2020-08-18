@@ -78,7 +78,7 @@ The data can be found [here](https://data.gov.hk/en-data/dataset/hk-rvd-tsinfo_r
 
 # Model Pipeline
 
-The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. `NerDLApproach` also simplifies the data preprocessing stage.
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)
@@ -96,3 +96,8 @@ Currently, our solution is not scalable since the we have not been able to succe
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
 ![Building](Images/graph.PNG)
+
+### Ideas to consider for next steps
+
+ - Improve performance of the model by experimenting with word embeddings. Use multilanguage BERT embeddings to see if there is a significant improvement in performance.
+ - Consider the training separate models for different regions grouped by languange and use a pretrained language classifier.

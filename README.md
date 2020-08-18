@@ -86,3 +86,10 @@ Helpful resources for Spark-nlp:
  
 Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
 
+### Steps for training the model
+ 1.  Create cluster using create_clusters.sh
+ 2.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket.
+ 3.  Submit pyspark job using submit_pyspark_job.sh with the specified graph path.
+ 4.  Optimize the model based on the results.
+ 5.  Test on HSBC data and repeat the process with randomized data.
+ 

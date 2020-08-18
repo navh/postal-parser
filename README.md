@@ -93,3 +93,6 @@ Currently, our solution is not scalable since the we have not been able to succe
  4.  Optimize the model based on the results.
  5.  Test on HSBC data and repeat the process with randomized data.
  
+### Tensorflow graph for NerDLApproach()
+The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
+![Building](Images/graph.PNG)

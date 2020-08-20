@@ -125,7 +125,7 @@ Currently, our solution is not scalable since the we have not been able to succe
  2.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket.
  3.  Submit pyspark job using submit_pyspark_job.sh with the specified graph path.
  4.  Optimize the model based on the results.
- 5.  Test on HSBC data and repeat the process with randomized data.
+ 5.  Test on bank data and repeat the process with randomized data.
  
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.

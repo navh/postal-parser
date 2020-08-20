@@ -75,6 +75,41 @@ The data can be found [here](https://data.gov.hk/en-data/dataset/hk-rvd-tsinfo_r
 
 ## Data Processing
 
+The data preprocessing is done through Google Cloud Platform's [Dataflow](https://cloud.google.com/dataflow).  The code for which can be found [here](https://github.com/Beaver-2020/postal-parser/tree/master/preprocessing-pipeline).
+
+While the notebook can be run from a local computer, the easiest way to run the preprocessing pipeline is through a virtual machine run on GCP.  This way all of the dependencies required for Apache Beam come preinstalled and configured.
+
+### Setting up a GCP notebook
+
+A GCP notebook is easiest to set up through the GCP console. In the GCP console, start by navigating to Dataflow (through the search bar or through the left hand hamburger menu).  You will then see on the left hand side of the screen two options to select, Jobs and Notebooks.  If you select notebooks, you can then hit New Instance to create a new VM to run your Notebook in.
+
+If using Maplequad, set the region to europe-west1 and the zone to europe-west1-b.  Hit customize and you can change the machine type to n1-standard-1 for lower costs. You can then create the machine.
+
+Once your machine is set up you can open the Notebook hosted through your VM by hitting OPEN JUPYTERLAB (this may take some time to load after you set up your VM).  Once you open your Jupyer Notebook, you can copy the code into the Notebook.
+
+### Running the Pipeline
+
+Once the code is entered into the notebook, the pipeline can be run by running all cells in the notebook.  **Before you run**, ensure you update the User Controlled Variables cell to match your current GCP project, and ensure your unprocessed data is set up correctly (see below).  Once you run, one of the bottom cells will output a link that takes you to a page where you can monitor the job's progress.  On the entire Open Addresses dataset (~40GB), the job takes around 45 minutes on average and uses around 200 worker nodes. 
+
+### Setting up your data
+
+All of the data should be located within a folder inside of which has folders representing each of the data sources you are collecting data from.  Within that folder, data can be organized into subfolders. The pipeline will assume that if there are subfolders within the data source folder, then the first layer of folder names represent the country of addresses within that folder.  The second layer represents the state of addresses within that folder.  The filename is assumed to represent the city or municipality of addresses within that file, unless the filename contains the words *state*, *country*, *province*, *wide*, or a number (eg. state_wide.csv would not represent a city name and would be ignored).  See below for an example file structure.
+
+.INPUT_LOCATION  
+&nbsp; &nbsp; +--subfolder  
+&nbsp; &nbsp; &nbsp; &nbsp; +--country1  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--state1  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; | &nbsp; +--city1.csv  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; | &nbsp; +--city2.csv  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--state2  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; | &nbsp; +--file1.csv  
+&nbsp; &nbsp; &nbsp; &nbsp; +-country2  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--province1  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--countrywide.csv  
+&nbsp; &nbsp; &nbsp; &nbsp; +-country3  
+&nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--countrywide.csv  
+&nbsp; &nbsp; &nbsp; &nbsp; |-...
+
 
 ## Model Pipeline
 

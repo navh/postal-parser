@@ -132,65 +132,15 @@ The dataframe should be of the following format:
 ![Building](Images/sparkdf.PNG)
 
 The label column is constructed by reading in the parquet produced using dataflow. The dataframe is formatted in sparknlp using the following schema:
-root
- |-- text: string (nullable = true)
- |-- document: array (nullable = true)
- |    |-- element: struct (containsNull = true)
- |    |    |-- annotatorType: string (nullable = true)
- |    |    |-- begin: integer (nullable = false)
- |    |    |-- end: integer (nullable = false)
- |    |    |-- result: string (nullable = true)
- |    |    |-- metadata: map (nullable = true)
- |    |    |    |-- key: string
- |    |    |    |-- value: string (valueContainsNull = true)
- |    |    |-- embeddings: array (nullable = true)
- |    |    |    |-- element: float (containsNull = false)
- |-- sentence: array (nullable = true)
- |    |-- element: struct (containsNull = true)
- |    |    |-- annotatorType: string (nullable = true)
- |    |    |-- begin: integer (nullable = false)
- |    |    |-- end: integer (nullable = false)
- |    |    |-- result: string (nullable = true)
- |    |    |-- metadata: map (nullable = true)
- |    |    |    |-- key: string
- |    |    |    |-- value: string (valueContainsNull = true)
- |    |    |-- embeddings: array (nullable = true)
- |    |    |    |-- element: float (containsNull = false)
- |-- token: array (nullable = true)
- |    |-- element: struct (containsNull = true)
- |    |    |-- annotatorType: string (nullable = true)
- |    |    |-- begin: integer (nullable = false)
- |    |    |-- end: integer (nullable = false)
- |    |    |-- result: string (nullable = true)
- |    |    |-- metadata: map (nullable = true)
- |    |    |    |-- key: string
- |    |    |    |-- value: string (valueContainsNull = true)
- |    |    |-- embeddings: array (nullable = true)
- |    |    |    |-- element: float (containsNull = false)
- |-- pos: array (nullable = true)
- |    |-- element: struct (containsNull = true)
- |    |    |-- annotatorType: string (nullable = true)
- |    |    |-- begin: integer (nullable = false)
- |    |    |-- end: integer (nullable = false)
- |    |    |-- result: string (nullable = true)
- |    |    |-- metadata: map (nullable = true)
- |    |    |    |-- key: string
- |    |    |    |-- value: string (valueContainsNull = true)
- |    |    |-- embeddings: array (nullable = true)
- |    |    |    |-- element: float (containsNull = false)
- |-- label: array (nullable = true)
- |    |-- element: struct (containsNull = true)
- |    |    |-- annotatorType: string (nullable = false)
- |    |    |-- begin: integer (nullable = false)
- |    |    |-- end: integer (nullable = false)
- |    |    |-- result: string (nullable = false)
- |    |    |-- metadata: map (nullable = true)
- |    |    |    |-- key: string
- |    |    |    |-- value: string (valueContainsNull = true)
- |    |    |-- embeddings: array (nullable = false)
- |    |    |    |-- element: float (containsNull = true)
-
-
+`Schema = ArrayType(
+                StructType([
+                    StructField("annotatorType", StringType(), False),
+                    StructField("begin", IntegerType(), False),
+                    StructField("end", IntegerType(), False),
+                    StructField("result", StringType(), False),
+                    StructField("metadata",  MapType(StringType(), StringType())),
+                    StructField("embeddings", ArrayType(FloatType()), False)
+                                   ]))`
  
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.

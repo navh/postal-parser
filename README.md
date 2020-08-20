@@ -111,12 +111,16 @@ All of the data should be located within a folder inside of which has folders re
 
 
 ## Model Pipeline
-
-The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
+Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to use the benefits of NerDLApproach() in this library which utilize deep learning and achieve higher accuracy and robustness than that of LibPostal's solution.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)
  - [Spark-nlp documentation](https://nlp.johnsnowlabs.com/docs/en/quickstart)
+ 
+ 
+## NerDLApproach()
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
+
  
 Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
 

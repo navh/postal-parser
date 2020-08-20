@@ -109,7 +109,6 @@ All of the data should be located within a folder inside of which has folders re
 &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--countrywide.csv  
 &nbsp; &nbsp; &nbsp; &nbsp; |-...
 
-
 ## Model Pipeline
 Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to use the benefits of NerDLApproach() in this library which utilize deep learning and achieve higher accuracy and robustness than that of LibPostal's solution.
 

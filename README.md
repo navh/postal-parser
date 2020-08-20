@@ -132,6 +132,7 @@ The dataframe should be of the following format:
 ![Building](Images/sparkdf.PNG)
 
 The label column is constructed by reading in the parquet produced using dataflow. The dataframe is formatted in sparknlp using the following schema:
+
 `Schema = ArrayType(
                 StructType([
                     StructField("annotatorType", StringType(), False),

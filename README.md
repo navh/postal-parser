@@ -127,6 +127,71 @@ Currently, our solution is not scalable since the we have not been able to succe
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
+### Data format
+The dataframe should be of the following format:
+![Building](Images/sparkdf.PNG)
+
+The label column is constructed by reading in the parquet produced using dataflow. The dataframe is formatted in sparknlp using the following schema:
+root
+ |-- text: string (nullable = true)
+ |-- document: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- annotatorType: string (nullable = true)
+ |    |    |-- begin: integer (nullable = false)
+ |    |    |-- end: integer (nullable = false)
+ |    |    |-- result: string (nullable = true)
+ |    |    |-- metadata: map (nullable = true)
+ |    |    |    |-- key: string
+ |    |    |    |-- value: string (valueContainsNull = true)
+ |    |    |-- embeddings: array (nullable = true)
+ |    |    |    |-- element: float (containsNull = false)
+ |-- sentence: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- annotatorType: string (nullable = true)
+ |    |    |-- begin: integer (nullable = false)
+ |    |    |-- end: integer (nullable = false)
+ |    |    |-- result: string (nullable = true)
+ |    |    |-- metadata: map (nullable = true)
+ |    |    |    |-- key: string
+ |    |    |    |-- value: string (valueContainsNull = true)
+ |    |    |-- embeddings: array (nullable = true)
+ |    |    |    |-- element: float (containsNull = false)
+ |-- token: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- annotatorType: string (nullable = true)
+ |    |    |-- begin: integer (nullable = false)
+ |    |    |-- end: integer (nullable = false)
+ |    |    |-- result: string (nullable = true)
+ |    |    |-- metadata: map (nullable = true)
+ |    |    |    |-- key: string
+ |    |    |    |-- value: string (valueContainsNull = true)
+ |    |    |-- embeddings: array (nullable = true)
+ |    |    |    |-- element: float (containsNull = false)
+ |-- pos: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- annotatorType: string (nullable = true)
+ |    |    |-- begin: integer (nullable = false)
+ |    |    |-- end: integer (nullable = false)
+ |    |    |-- result: string (nullable = true)
+ |    |    |-- metadata: map (nullable = true)
+ |    |    |    |-- key: string
+ |    |    |    |-- value: string (valueContainsNull = true)
+ |    |    |-- embeddings: array (nullable = true)
+ |    |    |    |-- element: float (containsNull = false)
+ |-- label: array (nullable = true)
+ |    |-- element: struct (containsNull = true)
+ |    |    |-- annotatorType: string (nullable = false)
+ |    |    |-- begin: integer (nullable = false)
+ |    |    |-- end: integer (nullable = false)
+ |    |    |-- result: string (nullable = false)
+ |    |    |-- metadata: map (nullable = true)
+ |    |    |    |-- key: string
+ |    |    |    |-- value: string (valueContainsNull = true)
+ |    |    |-- embeddings: array (nullable = false)
+ |    |    |    |-- element: float (containsNull = true)
+
+
+ 
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
 ![Building](Images/graph.PNG)

@@ -110,7 +110,7 @@ All of the data should be located within a folder inside of which has folders re
 &nbsp; &nbsp; &nbsp; &nbsp; |-...
 
 ## Model Pipeline
-Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to customize the NerDLApproach() in this library to utilize deep learning to  achieve higher accuracy and robustness than that of LibPostal's solution. In the sparknlp library, lots of annotators are provided which can simplifies the data preprocessing stage for any natural language processing problem.
+Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In the sparknlp library, lots of annotators are provided which can simplifies the data preprocessing stage for any natural language processing problem.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)
@@ -118,7 +118,7 @@ Helpful resources for Spark-nlp:
  
  
 ### NerDLApproach()
-NerDLApproach() is a general deep learning solution provided by sparknlp library to solve any NER problem. In this approach, CNN is used to get the char representation, bert (which is a pretrained word embedding method) is used to get the word representation, Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. <br>
+NerDLApproach() is a general deep learning solution provided by sparknlp library to solve any NER problem. In this approach, CNN is used to get the char representation, bert (which is a pretrained word embedding method) is used to get the word representation, Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. In this project, the goal is to customize the NerDLApproach() with our composite data to achieve higher accuracy and robustness than that of LibPostal's solution. 
 
 The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) 
  

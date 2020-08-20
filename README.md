@@ -135,3 +135,5 @@ The graph path can be specified in the input to the training pipeline. This shou
 
  - Improve performance of the model by experimenting with word embeddings. Use multilanguage BERT embeddings to see if there is a significant improvement in performance.
  - Consider the training separate models for different regions grouped by languange and use a pretrained language classifier.
+ - Consider adding external features (good power for adress tagging prediction) to our word and char representation before passing to BILSTM model.
+ -

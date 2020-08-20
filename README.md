@@ -120,9 +120,8 @@ Helpful resources for Spark-nlp:
 ### NerDLApproach()
 NerDLApproach() is a general deep learning solution provided by sparknlp library to solve any NER problem. In this approach, CNN is used to get the char representation, a type of pretrained word embedding method is used to get the word representation, Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. In this project, the goal is to customize the NerDLApproach() with our adsress dataset to achieve higher accuracy and robustness than that of LibPostal's solution. <br>
 
-The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) In this notebook, conll class in the sparknlp library is used to parse the text data in the conll style and annotate it to the format required for the NerDLApproach(). The example of our data with conll format is [here.](https://github.com/Beaver-2020/postal-parser/blob/master/data/test_CoNLL_addresses.txt). This conll class stopped working when you give it bigger txt file as the input. Therefore we implemented the new notebook [here], replicated what conll class does in the sparknlp library. This makes us bot anymore requiring to transform our data to the txt file with conll format.
- 
-Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) In this notebook, conll class in the sparknlp library is used to parse the text data in the conll style and annotate it to the format required for the NerDLApproach(). The example of our data with conll format is [here.](https://github.com/Beaver-2020/postal-parser/blob/master/data/test_CoNLL_addresses.txt) This conll class stopped working when you give it bigger txt file with more than 1 million records as the input. Therefore we implemented the new notebook [here], replicated what conll class does in the sparknlp library. This makes us not requiring anymore to transform our data to the txt file with conll format.
+
 
 ### Steps for training the model
  1.  Create cluster using create_clusters.sh
@@ -146,7 +145,7 @@ The label column is constructed by reading in the parquet produced using dataflo
                     StructField("metadata",  MapType(StringType(), StringType())),
                     StructField("embeddings", ArrayType(FloatType()), False)
                                    ]))`
- 
+Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
 ![Building](Images/graph.PNG)

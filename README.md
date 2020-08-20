@@ -110,7 +110,7 @@ All of the data should be located within a folder inside of which has folders re
 &nbsp; &nbsp; &nbsp; &nbsp; |-...
 
 ## Model Pipeline
-Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to use the benefits of NerDLApproach() in this library to utilize deep learning to  achieve higher accuracy and robustness than that of LibPostal's solution. In the sparknlp library, lots of annotators are provided which can simplifies the data preprocessing stage for any natural language processing problem.
+Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to customize the NerDLApproach() in this library to utilize deep learning to  achieve higher accuracy and robustness than that of LibPostal's solution. In the sparknlp library, lots of annotators are provided which can simplifies the data preprocessing stage for any natural language processing problem.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)

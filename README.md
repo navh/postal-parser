@@ -109,17 +109,22 @@ All of the data should be located within a folder inside of which has folders re
 &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; +--countrywide.csv  
 &nbsp; &nbsp; &nbsp; &nbsp; |-...
 
+
 ## Model Pipeline
-Spark NLP is an open source natural language processing library, built on top of Apache Spark and Spark ML. In this project, the goal is to use the benefits of NerDLApproach() in this library which utilize deep learning and achieve higher accuracy and robustness than that of LibPostal's solution.
+
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
 
 Helpful resources for Spark-nlp:
  - [Spark NLP Walkthrough, powered by TensorFlow](https://medium.com/@saif1988/spark-nlp-walkthrough-powered-by-tensorflow-9965538663fd)
  - [Spark-nlp documentation](https://nlp.johnsnowlabs.com/docs/en/quickstart)
+ - [Named Entity Recognition (NER) with BERT in Spark NLP](https://towardsdatascience.com/named-entity-recognition-ner-with-bert-in-spark-nlp-874df20d1d77)
  
  
-## NerDLApproach()
-The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) The goal is to use the benefits of deep learning and achieve higher accuracy and robustness than that of LibPostal's solution. We hope to achieve the best performance by utilizing the Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. `NerDLApproach` also simplifies the data preprocessing stage.
-
+If you want to dig deeper into NER-models:
+ - [Named Entity Recognition with Bidirectional LSTM-CNNs ](https://arxiv.org/pdf/1511.08308.pdf)
+ - [Bidirectional LSTM-CRF Models for Sequence Tagging](https://arxiv.org/pdf/1508.01991v1.pdf)
+ - [Named entity recognition with conditional random fields in python](https://www.depends-on-the-definition.com/named-entity-recognition-conditional-random-fields-python/)
+ - [Named Entity Recognition using Bidirectional LSTM-CRF](https://medium.com/@utkarsh.kumar2407/named-entity-recognition-using-bidirectional-lstm-crf-9f4942746b3c)
  
 Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
 
@@ -148,6 +153,7 @@ The label column is constructed by reading in the parquet produced using dataflo
  
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
+
 ![Building](Images/graph.PNG)
 
 ### Ideas to consider for next steps

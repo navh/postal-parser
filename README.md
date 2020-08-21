@@ -126,7 +126,7 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
 ### Steps for training the model
  1.  Create cluster using create_clusters.sh
  2.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket and specifying the path in the graph_path in the python file. The parameters of the graph should be specified based on the data you have.
- 3.  Submit pyspark job using submit_pyspark_job.sh.
+ 3.  Submit pyspark job using submit_job.sh.
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
@@ -134,7 +134,7 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
 Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:
 - configure the gcp infrastructure for training-two options: 
 
-     - build a cluster with multiple preemtiple workers (Async parameter server architecture)
+     - build a cluster with multiple preemtiple workers (async parameter server architecture)
      - build a single VM instance with multiple core and multiple GPUs (syn Allreduce architecture)
 - Call the distribution strategy API on the tensorflow code
 

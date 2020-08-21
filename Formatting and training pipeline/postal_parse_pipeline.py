@@ -19,9 +19,11 @@ from sparknlp.base import *
 training_split = 0.8
 
 bucket = sys.argv[1]
-inputdir = 'gs://'+bucket+'/processed-data/training'
+inputdir = 'gs://'+bucket+'/new-processed-data/training'
+
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model_final'
 graph_dir='gs://'+bucket+'/pyspark_nlp/graph'
+
 
 #spark_session
 def start(gpu):
@@ -117,7 +119,7 @@ def train(spark, data, NER_pipeline):
 
 
 
-#prediction on test data
+#prediction 
 def get_metrics(data):
     
         print("Getting labels...")
@@ -202,21 +204,22 @@ if __name__ == "__main__":
     print('Retrieving data from {}'.format(inputdir))
     data=spark.read.parquet(inputdir)
     data=format(data)
-    
-    #change this part if you want to train on more than 0.00002 of data.
+
+    #change this part if you want to train on more than 0.0001 of the data
     print("we are in our next step, training pipeline")
-    data =data.sample(False,0.0002, seed=0)
-    
+    data =data.sample(False,0.0001, seed=0)
+
+    #train-test split
     splits = data.randomSplit([training_split, 1-training_split], 24)
     training_data = splits[0]
     test_data = splits[1]
-    
-    
+
+
     print("Training on {} addresses...".format(training_data.count()))
     training_data=spark.read.parquet(our_test_address)
     model=training_pipeline(training_data)
 
-    print("predicting on train data")
+    #prediction
     get_metrics(training_data)
     print("predicting on test data")
     get_metrics(test_data)

@@ -130,21 +130,10 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
-### Data format
+Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. Some useful links for how to do distributed training in tensorflow is mentioned below:
 
-
-The label column is constructed by reading in the parquet produced using dataflow. The dataframe is formatted in sparknlp using the following schema:
-
-`Schema = ArrayType(
-                StructType([
-                    StructField("annotatorType", StringType(), False),
-                    StructField("begin", IntegerType(), False),
-                    StructField("end", IntegerType(), False),
-                    StructField("result", StringType(), False),
-                    StructField("metadata",  MapType(StringType(), StringType())),
-                    StructField("embeddings", ArrayType(FloatType()), False)
-                                   ]))`
-Currently, our solution is not scalable since the we have not been able to successfully parallelize the model training on the GCP cluster.
+-[distributed training in tensorflow] https://www.youtube.com/results?search_query=distributed+training+tensorflow
+-[TensorFlow CPUs and GPUs Configuration]:https://medium.com/@liyin2015/tensorflow-cpus-and-gpus-configuration-9c223436d4ef
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
 ![Building](Images/graph.PNG)

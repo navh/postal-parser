@@ -131,11 +131,11 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
 ### Steps for training the model on GCP
   
  1.  run preprocessing pipeline notebook (Go to dataflow in GCP and run the [notebook](https://github.com/Beaver-2020/postal-parser/blob/master/preprocessing-pipeline/preprocessing-pipeline.ipynb) there)
- 2. Create cluster using create_clusters.sh(https://github.com/Beaver-2020/postal-parser/tree/master/Formatting%20and%20training%20pipeline)
+ 2. Create cluster using create_clusters.sh in [here](https://github.com/Beaver-2020/postal-parser/tree/master/Formatting%20and%20training%20pipeline)
  3.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket and specifying the path in the graph_path in the python file. The parameters of the graph should be specified based on the data you have.
- 4.  Submit pyspark job using submit_job.sh. (https://github.com/Beaver-2020/postal-parser/tree/master/Formatting%20and%20training%20pipeline)
+ 4.  Submit pyspark job using submit_job.sh in [here](https://github.com/Beaver-2020/postal-parser/tree/master/Formatting%20and%20training%20pipeline)
  5.  Optimize the model based on the results.
- 6.  Test on bank data and repeat the process with randomized data.
+ 6.  Test on bank data and repeat the process with randomized data [here](https://github.com/Beaver-2020/postal-parser/blob/master/training/get_tagged_data.py)
  
  ### Distributed Training
 Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:

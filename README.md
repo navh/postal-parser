@@ -130,7 +130,7 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
- ### distributed training
+ ### Distributed training
 Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:
 - configure the gcp infrastructure for training-two options: 
 

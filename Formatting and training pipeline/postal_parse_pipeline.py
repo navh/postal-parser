@@ -199,7 +199,7 @@ if __name__ == "__main__":
         print('Created a SparkSession')
     except ValueError:
         warnings.warn('SparkSession already exists in this scope')
-    '''
+    
     print("we are in our first step, formatting pipeline")
     print('Retrieving data from {}'.format(inputdir))
     data=spark.read.parquet(inputdir)
@@ -207,14 +207,14 @@ if __name__ == "__main__":
 
     print("we are in our next step, training pipeline")
     data =data.sample(False,0.0002, seed=0)
-    print(data.count())
+    
     splits = data.randomSplit([training_split, 1-training_split], 24)
     training_data = splits[0]
     training_data.write.mode("overwrite").parquet(our_test_address)
     test_data = splits[1]
-    print("pass")
-    '''
-#print("Training on {} addresses...".format(training_data.count()))
+    
+    
+    print("Training on {} addresses...".format(training_data.count()))
     training_data=spark.read.parquet(our_test_address)
     model=training_pipeline(training_data)
 

@@ -120,19 +120,19 @@ Helpful resources for Spark-nlp:
 ### NerDLApproach()
 NerDLApproach() is a general deep learning solution provided by sparknlp library to solve any NER problem. In this approach, CNN is used to get the char representation, a type of pretrained word embedding method is used to get the word representation, Bi-LSTM to learn the language patterns and the CRF layer to improve labelling accuracy by learning the order in which entities appear in addresses. In this project, the goal is to customize the NerDLApproach() with our adsress dataset to achieve higher accuracy and robustness than that of LibPostal's solution. <br>
 
-The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) In this notebook, conll class in the sparknlp library is used to parse the text data in the conll style and annotate it to the format required for the NerDLApproach(). The example of our data with conll format is [here.](https://github.com/Beaver-2020/postal-parser/blob/master/data/test_CoNLL_addresses.txt) This conll class stopped working when you give it bigger txt file with more than 1 million records as the input. Therefore we implemented the new notebook [here](https://github.com/Beaver-2020/postal-parser/blob/master/training/Formatting_pipeline-new.ipynb), replicated what conll class does in the sparknlp library. This makes us not requiring anymore to transform our data to the txt file with conll format.
+The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Beaver-2020/postal-parser/blob/master/training/NERDLApproach.ipynb) In this notebook, conll class in the sparknlp library is used to parse the text data in the conll style and annotate it to the format required for the NerDLApproach(). The example of our data with conll format is [here.](https://github.com/Beaver-2020/postal-parser/blob/master/data/test_CoNLL_addresses.txt) This conll class stopped working when you give it bigger txt file with more than 1 million records as the input. Therefore we implemented the new notebook [here](https://github.com/Beaver-2020/postal-parser/blob/master/training/Formatting_pipeline-new.ipynb), replicated what conll class does in the sparknlp library. This makes us not requiring anymore to transform our data to the txt file with conll format.The f:
+![Building](Images/sparkdf.PNG)
 
 
 ### Steps for training the model
  1.  Create cluster using create_clusters.sh
- 2.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket.
- 3.  Submit pyspark job using submit_pyspark_job.sh with the specified graph path.
+ 2.  Create graph for the model using the [notebook.](https://github.com/Beaver-2020/postal-parser/blob/master/training/create_graph.ipynb) and save it to the GS bucket and specifying the path in the graph_path in the python file.
+ 3.  Submit pyspark job using submit_pyspark_job.sh.
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
 ### Data format
-The dataframe should be of the following format:
-![Building](Images/sparkdf.PNG)
+
 
 The label column is constructed by reading in the parquet produced using dataflow. The dataframe is formatted in sparknlp using the following schema:
 

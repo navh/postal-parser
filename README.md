@@ -133,8 +133,10 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
  ### distributed training
 Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:
 - configure the gcp infrastructure for training-two options: 
- - build a cluster with multiple preemtiple workers
- - build a single VM instance with multiple core and multiple GPUs
+
+     - Second nested list item
+     - build a cluster with multiple preemtiple workers
+     - build a single VM instance with multiple core and multiple GPUs
 - Call the distribution strategy API on the tensorflow code
 
 Some useful links for how to do distributed training in tensorflow is mentioned below:

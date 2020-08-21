@@ -151,4 +151,4 @@ The graph path can be specified in the input to the training pipeline. This shou
  - Improve performance of the model by experimenting with different word embeddings. Use fasttext word embedding (subword embeddings), multilanguage BERT embeddings to see if there is a significant improvement in performance. Fasttext embedding can significantly reduce OOV problem in our prediction.
  - Consider the training separate models for different regions grouped by languange and use a pretrained language classifier.
  - Consider adding external features which has good power for adress tagging prediction to our word and char representation before passing to BILSTM model.
- -(https://deepai.org/publication/leveraging-subword-embeddings-for-multinational-address-parsing)
+ -[Leveraging Subword Embeddings for Multinational Address Parsing] (https://deepai.org/publication/leveraging-subword-embeddings-for-multinational-address-parsing)

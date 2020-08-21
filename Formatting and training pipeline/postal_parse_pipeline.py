@@ -153,11 +153,6 @@ def get_label(inp):
         data2.append(data)
     return { 'text':text, 'label':data2}
 
-#our formatting pipeline procedure
-def with_column_index(sdf):
-    new_schema = StructType(sdf.schema.fields + [StructField("ColumnIndex", LongType(), False),])
-    return sdf.rdd.zipWithIndex().map(lambda row: row[0] + (row[1],)).toDF(schema=new_schema)
-
 
 #our formatting pipeline procedure
 def format(df):

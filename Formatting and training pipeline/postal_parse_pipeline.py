@@ -220,7 +220,6 @@ if __name__ == "__main__":
     model=training_pipeline(training_data)
 
     #prediction
-    get_metrics(training_data)
     print("predicting on test data")
     get_metrics(test_data)
     

@@ -20,10 +20,8 @@ training_split = 0.8
 
 bucket = sys.argv[1]
 inputdir = 'gs://'+bucket+'/processed-data/training'
-outputfile = 'gs://'+bucket+'/pyspark_nlp/result'
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model_final'
 graph_dir='gs://'+bucket+'/pyspark_nlp/graph'
-our_test_address='gs://'+bucket+'/test/process_data'
 
 #spark_session
 def start(gpu):
@@ -204,13 +202,13 @@ if __name__ == "__main__":
     print('Retrieving data from {}'.format(inputdir))
     data=spark.read.parquet(inputdir)
     data=format(data)
-
+    
+    #change this part if you want to train on more than 0.00002 of data.
     print("we are in our next step, training pipeline")
     data =data.sample(False,0.0002, seed=0)
     
     splits = data.randomSplit([training_split, 1-training_split], 24)
     training_data = splits[0]
-    training_data.write.mode("overwrite").parquet(our_test_address)
     test_data = splits[1]
     
     

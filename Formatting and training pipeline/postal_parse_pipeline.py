@@ -141,23 +141,28 @@ def get_metrics(data):
         print("Accuracy = {}".format(accuracy))
 
 #getting labels and annotate them
-def get_label(inp):
-    x=inp['label']
-    text=inp['text']
-    data2=[]
-    data={}
-    for i in range(len(x)):
-        data=x[i].asDict()
-        data['metadata']=data['metadata'].asDict()
-        data=Row(**data)
-        data2.append(data)
-    return { 'text':text, 'label':data2}
-
+def createAnnotation(l):
+    res=[]
+    
+    for i in range(len(l)):
+        data=l[i].asDict()
+        a=Row(
+              annotatorType="named_entity",
+              begin=data['begin'],
+              end=data['end'],
+              result=data['result'],
+              metadata=data['metadata'].asDict(),
+              embeddings=[0.]
+              )
+        res.append(a)
+    
+    return res
 
 #our formatting pipeline procedure
 def format(df):
     training_rdd = df.rdd.map(lambda row: row.asDict())
-    label_rdd = training_rdd.map(lambda x: get_label(x))
+    data_rdd = training_rdd.map(lambda  x: {'text':x['text'], 'label':createAnnotation(x['label'])})
+    
    
     Schema = StructType([StructField("text", StringType(), False),
                         StructField('label',ArrayType(
@@ -169,7 +174,7 @@ def format(df):
                                    StructField("metadata",  MapType(StringType(), StringType())),
                                    StructField("embeddings",  ArrayType(FloatType()), False)
                                    ])))])
-    training_data= spark.createDataFrame(label_rdd, schema=Schema)
+    training_data= spark.createDataFrame(data_rdd, schema=Schema)
     formatting_model=get_formatting_model()
     training_data=formatting_model.transform(training_data)
     training_data=training_data.filter(size(col("sentence.end")) <= 1)
@@ -200,7 +205,7 @@ if __name__ == "__main__":
 
     #change this part if you want to train on more than 0.00015 of the data
     print("we are in our next step, training pipeline")
-    data =data.sample(False,0.00015, seed=0)
+    data =data.sample(False,0.0001, seed=0)
 
     #train-test split
     splits = data.randomSplit([training_split, 1-training_split], 24)

@@ -131,10 +131,16 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
  5.  Test on bank data and repeat the process with randomized data.
  
  ### distributed training
-Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. Some useful links for how to do distributed training in tensorflow is mentioned below:
+Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:
+- configure the gcp infrastructure for training-two options: 
+-- build a cluster with multiple preemtiple workers
+-- build a single VM instance with multiple core and multiple GPUs
+- Call the distribution strategy API on the tensorflow code
+
+Some useful links for how to do distributed training in tensorflow is mentioned below:
 
 - [distributed training in tensorflow:](https://www.youtube.com/results?search_query=distributed+training+tensorflow)
-- [TensorFlow CPUs and GPUs Configuration:] (https://medium.com/@liyin2015/tensorflow-cpus-and-gpus-configuration-9c223436d4ef)
+- [TensorFlow CPUs and GPUs Configuration:](https://medium.com/@liyin2015/tensorflow-cpus-and-gpus-configuration-9c223436d4ef)
 ### Tensorflow graph for NerDLApproach()
 The graph path can be specified in the input to the training pipeline. This should only be done if there is an error `Could not find a suitable tensorflow graph for embeddings`.
 ![Building](Images/graph.PNG)

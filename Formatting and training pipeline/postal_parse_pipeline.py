@@ -1,28 +1,26 @@
 import sys
-
-import warnings
-import re
-import pyspark
-from pyspark.sql import Row
-from pyspark.sql.types import *
-from typing import List
-from pyspark.sql import functions as F
-from pyspark.sql import SparkSession
-from pyspark.ml import Pipeline, PipelineModel
-
 import sparknlp
-from sparknlp.annotator import *
+import pyspark
+import re
+import warnings
+from pyspark.ml import Pipeline, PipelineModel
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+import pyspark.sql.functions as F
+from pyspark.sql import *
+from typing import List
 from sparknlp.common import *
+from sparknlp.annotator import *
 from sparknlp.base import *
 
 
 training_split = 0.8
 
 bucket = sys.argv[1]
-inputdir = 'gs://'+bucket+'/new-processed-data/training'
+inputdir = 'gs://'+bucket+'/processed-data/training'
+
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model_final'
 graph_dir='gs://'+bucket+'/pyspark_nlp/graph'
-
 
 #spark_session
 def start(gpu):
@@ -118,7 +116,7 @@ def train(spark, data, NER_pipeline):
 
 
 
-#prediction 
+#prediction
 def get_metrics(data):
     
         print("Getting labels...")
@@ -179,6 +177,7 @@ def format(df):
     training_data= spark.createDataFrame(label_rdd, schema=Schema)
     formatting_model=get_formatting_model()
     training_data=formatting_model.transform(training_data)
+    training_data=training_data.filter(size(col("sentence.end")) <= 1)
     return training_data
 
 #our training pipeline procedure
@@ -204,9 +203,9 @@ if __name__ == "__main__":
     data=spark.read.parquet(inputdir)
     data=format(data)
 
-    #change this part if you want to train on more than 0.0001 of the data
+    #change this part if you want to train on more than 0.00015 of the data
     print("we are in our next step, training pipeline")
-    data =data.sample(False,0.0001, seed=0)
+    data =data.sample(False,0.00015, seed=0)
 
     #train-test split
     splits = data.randomSplit([training_split, 1-training_split], 24)
@@ -218,6 +217,7 @@ if __name__ == "__main__":
     model=training_pipeline(training_data)
 
     #prediction
+    get_metrics(training_data)
     print("predicting on test data")
     get_metrics(test_data)
     

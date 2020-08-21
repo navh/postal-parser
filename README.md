@@ -33,7 +33,7 @@ OpenStreetMap is 93 GB in size. The dataset can be found [here](https://planet.o
 
 The following [link](https://extract.bbbike.org/) provides OpenStreetMap data in more manageable sizes.
 
-The details of the reverse geocoder API from OpenCage can be found [here](https://opencagedata.com/api). The API can be accessed through [many languages](https://opencagedata.com/sdks). This [link](https://github.com/DenisCarriere/geocoder) is for python in particular. 
+The details of the reverse geocoder API from OpenCage can be found [here](https://opencagedata.com/api). The API can be accessed through [many languages](https://opencagedata.com/sdks). This [link](https://github.com/DenisCarriere/geocoder) is for Python in particular. 
 
 ### Hong Kong Post
 Hong Kong Post provides address data for Hong Kong as a string, written as a person would write them. The addresses have to be constructed using the drop down menu.

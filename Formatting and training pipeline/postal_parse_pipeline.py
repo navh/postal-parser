@@ -20,7 +20,6 @@ training_split = 0.8
 
 bucket = sys.argv[1]
 inputdir = 'gs://'+bucket+'/new-processed-data/training'
-
 modeldir = 'gs://'+bucket+'/pyspark_nlp/model_final'
 graph_dir='gs://'+bucket+'/pyspark_nlp/graph'
 
@@ -216,7 +215,6 @@ if __name__ == "__main__":
 
 
     print("Training on {} addresses...".format(training_data.count()))
-    training_data=spark.read.parquet(our_test_address)
     model=training_pipeline(training_data)
 
     #prediction

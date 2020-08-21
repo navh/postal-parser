@@ -1,5 +1,10 @@
 # Introduction
 
+### Overall Structure
+- preprocessing pipeline
+- formating pipeline
+- training pipeline
+- prediction pipeline
 
 # Google Cloud Use
 
@@ -130,7 +135,7 @@ The `NerDLApproach()` is explained in our notebook [here.](https://github.com/Be
  4.  Optimize the model based on the results.
  5.  Test on bank data and repeat the process with randomized data.
  
- ### Distributed training
+ ### Distributed Training
 Currently, our solution is not scalable since  we have not been able to successfully parallelize the data during training on the GCP cluster. There are two main steps in order to train in distributed way:
 - configure the gcp infrastructure for training-two options: 
 
@@ -152,3 +157,5 @@ The graph path can be specified in the input to the training pipeline. This shou
  - Consider the training separate models for different regions grouped by languange and use a pretrained language classifier.
  - Consider adding external features which has good power for adress tagging prediction to our word and char representation before passing to BILSTM model.
  - [Leveraging Subword Embeddings for Multinational Address Parsing] (https://deepai.org/publication/leveraging-subword-embeddings-for-multinational-address-parsing)
+ 
+
